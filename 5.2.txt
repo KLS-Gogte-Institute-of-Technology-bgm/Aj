@@ -1,0 +1,71 @@
+Main class:
+package TW5;
+import java.util.Scanner;
+public class tw5 {
+ public static void main(String[] args)
+ {
+ Scanner s = new Scanner(System.in);
+ System.out.println("How many numbers in fibonacci series :");
+ int fibN = s.nextInt();
+ System.out.println("How many numbers in Reverse series :");
+ int RevN = s.nextInt();
+ Fibonacci_thread ft = new Fibonacci_thread(fibN);
+ ft.start();
+ Reverse_Series rs = new Reverse_Series(RevN);
+ rs.start();
+ try{
+ Thread.sleep(1000);
+ }
+ catch(Exception e){}
+ System.out.println(“”);
+ System.out.println("Exiting main Thread......");
+ }
+}
+Fibonacci Thread:
+package TW5;
+import java.lang.Thread;
+public class Fibonacci_thread extends Thread
+{
+ private int N;//number of digits in fibs series
+ Fibonacci_thread(int n)
+ {
+ N = n;
+ }
+ public void run()
+ {
+ int f1 = 0;
+ int f2 = 1;
+ int f3;
+ System.out.println("Fibonnaci Series");
+ System.out.print(f1 + " " +f2+ " ");
+ for(int i=2;i<N;i++)
+ {
+ f3 = f1+f2;
+ System.out.print(f3+" ");
+ f1 = f2;
+ f2 = f3;
+ }
+ System.out.println("");
+ System.out.println("Fib series child thread exiting.......");
+ }
+}
+Reverse Thread:
+package TW5;
+import java.lang.Thread;
+public class Reverse_Series extends Thread {
+ private int N;
+ Reverse_Series(int n)
+ {
+ N = n;
+ }
+ public void run()
+ {
+ System.out.println("Reverse Series: ");
+ for(int i=N;i>0;i--)
+ {
+ System.out.print(i + " ");
+ }
+ System.out.println("");
+ System.out.println("Reverse series child thread exiting.......");
+ }
+} 

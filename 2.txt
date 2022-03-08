@@ -1,0 +1,126 @@
+import java.io.*;
+import java.util.*;
+public class tw2 {
+ static void createArray(ArrayList ai,int in)
+ {
+ Scanner s = new Scanner(System.in);
+ System.out.println("Enter element to be added to integer array list : ");
+ int ele = s.nextInt();
+ ai.add(ele);
+ System.out.println("The integer array is : "+ ai);
+ System.out.println("Its size is : "+ai.size());
+ }
+ static void createArray(int in,ArrayList fi){
+ Scanner s = new Scanner(System.in);
+ System.out.println("Enter element to be added to float array list : ");
+ float ele = s.nextInt();
+ fi.add(ele);
+ System.out.println("The float array is : "+ fi);
+ System.out.println("Its size is : "+fi.size());
+ }
+ static void removeArray(ArrayList ai,int ind)
+ {
+ if(!ai.isEmpty()){
+ if(ind>=0 && ind<ai.size())
+ {
+ ai.remove(ind);
+ System.out.println("Integer array now is : "+ai);
+ }
+ else
+ {
+ System.out.println("Enter valid index\n");
+ }
+ }
+ else
+ System.out.println("ArrayList is empty");
+ }
+ static void removeArray(int ind, ArrayList fi)
+ {
+ if(!fi.isEmpty()){
+ if(ind>=0 && ind<fi.size())
+ {
+ fi.remove(ind);
+ System.out.println("Float array now is : "+fi);
+ }
+ else
+ {
+ System.out.println("Enter valid index\n");
+ }
+ }
+ else
+ System.out.println("ArrayList is empty");
+ }
+ static void linearSearch(ArrayList ai,int iele)
+ {
+ for(int i=0;i<ai.size();i++){
+ if((int)ai.get(i)==iele){
+ System.out.println(“Element found at index: ”+i);
+ return;
+ }
+ }
+ System.out.println(“Element not found.”);
+ }
+ static void linearSearch(int fele. ArrayList fi)
+ {
+ for(int i=0;i<fi.size();i++){
+ if((float)fi.get(i)==fele){
+ System.out.println(“Element found at index: ”+i);
+ return;
+ }
+ }
+ System.out.println(“Element not found.”);
+ }
+ public static void main(String[] args)
+ {
+ int choice,in,fno;
+ Scanner s = new Scanner(System.in);
+ ArrayList<Float> fi;
+ System.out.println("How many elements in integer arraylist:");
+ in = s.nextInt();
+ System.out.println("How many elements in float arraylist:");
+ fno = s.nextInt();
+ ArrayList<Integer> ai = new ArrayList<>(in);
+ ArrayList<Float> fi = new ArrayList<>(fno);
+ while(true){
+ System.out.println("\n1.To create integer array list/n"
+ + "2.To remove an element from integer array list\n"
+ + "3.To search in integer array list\n"
+ + “4.To create float array list/n"
+ + "5.To remove an element from float array list\n"
+ + "6.To search in float array list\n”
+ + “7.Exit”);
+ System.out.print("Enter your choice : ");
+ choice = s.nextInt();
+ switch(choice){
+ case 1:
+ createArray(ai,in);
+ break;
+ case 2:
+ System.out.print("Enter index of the element to be removed : ");
+ int ind = s.nextInt();
+ removeArray(ai,ind);
+ break;
+ case 3:
+ System.out.print("Enter the element to be searched : ");
+ int iele = s.nextInt();
+ linearSearch(ai,iele);
+ break;
+ case 4:
+ createArray(fno,fi);
+ break;
+ case 5:
+ System.out.print("Enter index of the element to be removed : ");
+ int ind = s.nextInt();
+ removeArray(ind,fi);
+ break;
+ case 6:
+ System.out.print("Enter the element to be searched : ");
+ float fele = s.nextFloat();
+ linearSearch(fele,fi);
+ break;
+ case 7: System.exit(0);
+ default: System.out.println(“Invalid Choice.”);
+ }
+ }
+ }
+}

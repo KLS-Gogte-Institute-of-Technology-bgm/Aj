@@ -1,0 +1,73 @@
+class Q {
+    int num;
+    boolean valueSet = false;
+
+    synchronized void put(int num) {
+        while(valueSet) {
+            try {
+                wait();
+            } catch (Exception e) {}
+        }
+
+        this.num = num;
+        System.out.println("Producer -> " + num);
+        valueSet = true;
+        notify();
+    }
+
+    synchronized void get() {
+        while(!valueSet) {
+            try {
+                wait();
+            } catch (Exception e) {}
+        }
+        System.out.println("Consumer ->" + num);
+        valueSet = false;
+        notify();
+    }
+}
+
+class Producer implements Runnable {
+    Q q;
+    int i = 0;
+    Producer(Q q) {
+        this.q = q;
+        Thread t = new Thread(this, "Producer");
+        t.start();
+    }
+
+    public void run() {
+        while(true) {
+            q.put(i++);
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {}
+        }
+    }
+}
+
+class Consumer implements Runnable {
+    Q q;
+    Consumer(Q q) {
+        this.q = q;
+        Thread t = new Thread(this, "Consumer");
+        t.start();
+    }
+
+    public void run() {
+        while(true) {
+            q.get();
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {}
+        }
+    }
+}
+
+public class tw7 {
+    public static void main(String[] args) {
+        Q q = new Q();
+        Producer pro = new Producer(q);
+        Consumer con = new Consumer(q);
+    }
+}

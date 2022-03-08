@@ -1,0 +1,168 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class ArrayListClass {
+    static Scanner inp = new Scanner(System.in);
+    static int integerInput;
+    static float floatInput;
+
+    public static void createArrayList(ArrayList<Integer> ali, int size) {
+        System.out.print("Enter the Numbers separating numbers by space: ");
+
+        for (int i = 0; i < size; i++) {
+            integerInput = inp.nextInt();
+            ali.add(integerInput);
+
+        }
+    }
+
+    public static void createArrayList(int size, ArrayList<Float> alf) {
+        System.out.print("Enter the Numbers separating numbers by space: ");
+
+        for (int i = 0; i < size; i++) {
+            floatInput = inp.nextFloat();
+            alf.add(floatInput);
+
+        }
+    }
+
+    public static void removeElement(ArrayList<Integer> ali, int element) {
+        int tempSize = ali.size();
+        for (int i = 0; i < ali.size(); i++) {
+            if (ali.get(i) == element) {
+                ali.remove(i);
+                System.out.println("Element has been removed : " + element);
+            }
+        }
+        System.out.println(ali.size() == tempSize ? "Element is not present in the Integer List : " + element : "");
+    }
+
+    public static void removeElement(float element, ArrayList<Float> alf) {
+        int tempSize = alf.size();
+        for (int i = 0; i < alf.size(); i++) {
+            if (alf.get(i) == element) {
+                alf.remove(i);
+                System.out.println("Element has been removed : " + element);
+            }
+        }
+        System.out.println(alf.size() == tempSize ? "Element is not present in the Float List : " + element : "");
+
+    }
+
+    public static void linearSearch(ArrayList<Integer> ali, int keyElement) {
+        int tempSize = ali.size();
+        int i;
+        for (i = 0; i < ali.size(); i++) {
+            if (ali.get(i) == keyElement) {
+                System.out.println("Element is present in the Integer List : " + keyElement);  // once the element is found then the loop breaks and i value is less than size of an array
+                break;
+            }
+
+        }
+        System.out.println(tempSize == i ? "Element is not present in the Integer List : " + keyElement : ""); // if i value is same as size of an ArrayList it means the element is not there
+
+    }
+
+    public static void linearSearch(float keyElement, ArrayList<Float> alf) {
+        int tempSize = alf.size();
+        int i;
+        for (i = 0; i < alf.size(); i++) {
+            if (alf.get(i) == keyElement) {
+                System.out.println("Element is present in the Integer List : " + keyElement);
+                break;
+            }
+
+        }
+        System.out.println(tempSize == i ? "Element is not present in the Float List : " + keyElement : "");
+
+    }
+
+    public static void displayElements(ArrayList al) {
+        for (int i = 0; i < al.size(); i++) {
+            System.out.print(al.get(i) + "\t\t");
+        }
+    }
+
+}
+
+public class TW2_Wrappers {
+
+    public static void main(String[] args) {
+        ArrayList<Integer> ali = new ArrayList<>();
+        ArrayList<Float> alf = new ArrayList<>();
+
+        Scanner inp = new Scanner(System.in);
+        int choice;
+        int size;
+        String typeList;
+
+
+        while (true) {
+            System.out.println("Select the type of ArrayList\n 1.Integer ArrayList\t 2.Float ArrayList");
+            choice = inp.nextInt();
+
+            if (choice == 1) {
+                typeList = "Integer ArrayList";
+            } else {
+                typeList = "Float ArrayList";
+            }
+
+            System.out.println("\n1. Add Elements to " + typeList);
+            System.out.println("2. Remove Elements from " + typeList);
+            System.out.println("3. Linear Search Elements in " + typeList);
+            System.out.println("4. Display Elements present in " + typeList);
+            choice = inp.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter the size of " + typeList);
+                    size = inp.nextInt();
+
+                    if (typeList.equals("Integer ArrayList")) {
+                        ArrayListClass.createArrayList(ali, size);
+                    } else if (typeList.equals("Float ArrayList")) {
+                        ArrayListClass.createArrayList(size, alf);
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("Enter the Element to be removed from " + typeList);
+
+                    if (typeList.equals("Integer ArrayList")) {
+                        int removeElement = inp.nextInt();
+                        ArrayListClass.removeElement(ali, removeElement);
+                    } else if (typeList.equals("Float ArrayList")) {
+                        float removeElement = inp.nextFloat();
+                        ArrayListClass.removeElement((float) removeElement, alf);
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Enter the Element to be searched in " + typeList);
+
+                    if (typeList.equals("Integer ArrayList")) {
+                        int key = inp.nextInt();
+                        ArrayListClass.linearSearch(ali, key);
+                    } else if (typeList.equals("Float ArrayList")) {
+                        float key = inp.nextFloat();
+                        ArrayListClass.linearSearch((float) key, alf);
+                    }
+                    break;
+
+                case 4:
+                    if (typeList.equals("Integer ArrayList")) {
+                        ArrayListClass.displayElements(ali);
+                    } else if (typeList.equals("Float ArrayList")) {
+                        ArrayListClass.displayElements(alf);
+                    }
+                    break;
+
+                default:
+                    System.out.println("Wrong input\n");
+
+
+            }
+            System.out.println("\n");
+        }
+    }
+}

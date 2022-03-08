@@ -1,0 +1,83 @@
+Main class:
+package TW5;
+import java.util.Scanner;
+public class tw5a {
+ public static void main(String[] args)
+ {
+ Scanner s= new Scanner(System.in);
+ System.out.println("Enter the number :");
+ int b = s.nextInt();
+ System.out.println("Enter the elements into the array");
+ int a[] = new int[b];
+ for(int i=0;i<b;i++)
+ a[i] = s.nextInt();
+ ascending_thread at = new ascending_thread(a);
+ at.start();
+ descending_thread dt = new descending_thread(a);
+ dt.start();
+ try{
+ Thread.sleep(1000);
+ }
+ catch(Exception e){}
+ System.out.println("”);
+ System.out.println("main thread exiting.......");
+ }
+}
+Ascending Thread:
+package TW5;
+import java.lang.Thread;
+public class ascending_thread extends Thread{
+ private int a[];
+ ascending_thread(int n[])
+ {
+ a = new int[n.length];
+ for(int i=0;i<a.length;i++)
+ {
+ a[i] = n[i];
+ }
+ }
+ public void run()
+ {
+ int temp;
+ for(int i=0;i<a.length-1;i++)
+ for(int j=0;j<a.length-i-1;j++)
+ if(a[j]>a[j+1]){
+ temp=a[j];
+ a[j]=a[j+1];
+ a[j+1]=temp;
+ }
+ System.out.println("Ascending order: ");
+ for(int i=0;i<a.length;i++)
+ System.out.print(a[i]+" ");
+ System.out.println("Ascending order child thread exiting.......");
+ }
+}
+Descending Thread:
+package TW5;
+public class descending_thread extends Thread {
+ private int a[];
+ descending_thread(int n[])
+ {
+ a = new int[n.length];
+ for(int i=0;i<a.length;i++)
+ {
+ a[i] = n[i];
+ }
+ }
+ public void run()
+ {
+ int temp;
+ for(int i=0;i<a.length-1;i++)
+ for(int j=0;j<a.length-i-1;j++){
+ if(a[j]<a[j+1]){
+ temp=a[j];
+ a[j]=a[j+1];
+ a[j+1]=temp;
+ }
+ }
+ System.out.println("Descending order: ");
+ for(int i=0;i<a.length;i++)
+ System.out.print(a[i]+" ");
+ System.out.println("Descending child thread exiting.......");
+ }
+} 

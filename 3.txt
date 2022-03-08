@@ -1,0 +1,115 @@
+import java.io.*;
+import static java.lang.System.exit;
+import java.util.Scanner;
+public class tw3 {
+ public static void main(String []args)
+ {
+ Scanner s = new Scanner(System.in);
+ String src_file = "C:\\Users\\ \\Desktop\\";
+ String des_file = "C:\\Users\\ \\Desktop\\";
+ String fname = new String();
+ File f;
+ boolean flag=true;
+
+ while(flag){
+ System.out.println("1.Enter the source and destination file names\n"
+ + "2.Enter text to be written to the source file\n"
+ + "3.Write every alternate byte from the source to the destination file\n"
+ + "4.Compare the properties of the files\n"
+ + "5.Exit");
+ System.out.print("Enter your choice: ");
+ int choice = s.nextInt();
+
+switch(choice){
+ case 1:try
+ {
+ System.out.print("Enter the source file name : ");
+ fname = s.nextLine();// to consume the new line character
+ fname = s.nextLine();
+ src_file = src_file + fname;
+ System.out.println("Enter the Destination file name : ");
+ fname = s.nextLine();
+ des_file = des_file+fname;
+ f = new File(src_file);
+ if(f.createNewFile())
+ System.out.println("New file created\n");
+ else
+ System.out.println("source file already exists\n");
+ //Destination file creation
+ f1 = new File(des_file);
+ if(f1.createNewFile())
+ System.out.println("destination file created\n");
+ else
+ System.out.println("File already exists\n");
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ break;
+ case 2:try
+ {
+ String data = new String();
+ System.out.println("Enter the text to be written to the source file : ");
+ read = s.nextLine();
+ read = s.nextLine();
+ FileOutputStream fout = new FileOutputStream(src_file);
+ byte[] buff = read.getBytes();
+ fout.write(read);
+ fout.close();
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ break;
+ case 3:try
+ {
+ InputStream fin = new FileInputStream(src_file);
+ OutputStream fout = new FileOutputStream(des_file);
+ int i = fin.read();
+ while(i!=-1)
+ {
+ fin.read();
+ fout.write(i);
+ i=fin.read();
+ }
+ fout.close();
+ System.out.println(“”Data Copied!”);
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ break;
+ case 4:try
+ {
+ File fobj = new File(src_file);
+ System.out.println("Properties of the source file :\n");
+ System.out.println("File name : " + fobj.getName());
+ System.out.println("is Writable : " + fobj.canWrite());
+ System.out.println("is readable : " + fobj.canRead());
+ System.out.println("is hidden : " + fobj.isHidden());
+ System.out.println("Path of the file : "+fobj.getAbsolutePath());
+ System.out.println("Length of the file is : "+fobj.length());
+ fobj = new File(des_file);
+ System.out.println("Properties of the Destination file :\n");
+ System.out.println("File name : " + fob.getName());
+ System.out.println("is Writable : " + fobj.canWrite());
+ System.out.println("is readable : " + fobj.canRead());
+ System.out.println("is hidden : " + fobj.isHidden());
+ System.out.println("Path of the file : "+fobj.getAbsolutePath());
+ System.out.println("Length of the file is : "+fobj.length());
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ break;
+ default: System.out.println(“Invalid Choice.”);
+ flag=false;
+ system.exit(0);
+ }
+ }
+ }
+}

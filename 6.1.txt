@@ -1,0 +1,85 @@
+package tw6;
+class Stack {
+ protected int arr[];
+ protected int top;
+ Stack(int size) { // Dynamically allocate size and intialize top
+ arr = new int[size];
+ top = -1;
+ System.out.println("Stack of size " + arr.length + " has been created");
+ }
+ synchronized void push(String name, int element) {
+ if(top < arr.length) {
+ arr[++top] = element;
+ System.out.println(name + " pushed->" + element);
+ }
+ else {
+ System.out.println("Stack Full");
+ }
+ try {
+ Thread.sleep(1000);
+ } catch (Exception e) {
+ System.out.println(e);
+ }
+ }
+ synchronized void pop(String name) {
+ if(top == -1) {
+ System.out.println("Stack Empty");
+ }
+ else {
+ System.out.println(name + " popped-> " + arr[top--]);
+ }
+ try {
+ Thread.sleep(1000);
+ } catch (InterruptedException e) {
+ System.out.println(e);
+ }
+ }
+}
+class PushThread extends Thread {
+ Stack s;
+ String name;
+ int element;
+ PushThread(int element, String name, Stack s) {
+ this.element = element;
+ this.name = name;
+ this.s = s;
+ }
+ @Override
+ public void run() {
+ s.push(name, element);
+ }
+}
+class PopThread extends Thread {
+ Stack s;
+ String name;
+ PopThread(String name, Stack s) {
+ this.name = name;
+ this.s = s;
+ }
+ @Override
+ public void run() {
+ s.pop(name);
+ }
+}
+public class tw6a {
+ public static void main(String args[]) {
+ Stack s = new Stack(4);
+ // Create child thread
+ PushThread pu1 = new PushThread(10, "Push Thread 1", s);
+ PushThread pu2 = new PushThread(15, "Push Thread 2", s);
+ PushThread pu3 = new PushThread(20, "Push Thread 3", s);
+ PushThread pu4 = new PushThread(25, "Push Thread 4", s);
+ PopThread po1 = new PopThread("Pop Thread 1", s);
+ PopThread po2 = new PopThread("Pop Thread 2", s);
+ PopThread po3 = new PopThread("Pop Thread 3", s);
+ // Start push child thread
+ pu1.start();
+ pu2.start();
+ pu3.start();
+ pu4.start();
+ // Start pop child thread
+ po1.start();
+ po2.start();
+ po3.start();
+ }
+} 

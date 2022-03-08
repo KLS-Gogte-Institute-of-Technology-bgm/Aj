@@ -1,0 +1,77 @@
+import java.io.*;
+import static java.lang.System.exit;
+import java.util.Scanner;
+public class tw1{
+ public static void main(String[] args)
+ {
+ while(true){
+ System.out.println("1.Transfer the content of the file to another file - one byte at a time\n2.Transfer the
+content of the source file to destination file by byte input/output stream\n3.Display the content of the
+destination file\n4.Exit \n");
+ Scanner s = new Scanner(System.in);
+ File obj1 = new File("C:\\Users\\Lab8\\Desktop\\input.txt");
+ File obj2 = new File("C:\\Users\\Lab8\\Desktop\\output.txt");
+ System.out.println("Enter your choice :");
+ int choice = s.nextInt();
+ switch(choice)
+ {
+ case 1:try{
+ FileInputStream fin = new FileInputStream(obj1);
+ FileOutputStream fout = new FileOutputStream(obj2);
+ int i = fin.read();
+ while(i!=-1)
+ {
+ fout.write(i);
+ i = fin.read();
+ }
+ System.out.println("Copied contents to another file.");
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ break;
+ case 2:try{
+ FileInputStream fin = new FileInputStream(obj1);
+ FileOutputStream fout = new FileOutputStream(obj2);
+ byte []buff = new byte[(int)obj1.length()];
+ fin.read(buff);
+ ByteArrayInputStream bin = new ByteArrayInputStream(buff);
+ ByteArrayOutputStream bout = new ByteArrayOutputStream();
+ int i = bin.read();
+ while(i!=-1)
+ {
+ bout.write(i);
+ i=bin.read();
+ }
+ bout.writeTo(fout);
+ fin.close();
+ fout.close();
+ bin.close();
+ bout.flush();
+ System.out.println(“Contents transferred”)
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ break;
+ case 3:try{
+ FileInputStream fin = new FileInputStream(obj2);
+ byte []buff = new byte[fin.availaable()];
+ fin.read(buff);
+ String data = new String(buff);
+ System.out.println(data);
+ System.out.println("Successfully Displayed");
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ break;
+ case 4:System.exit(0);
+ default: System.out.println(“Invalid Choice”);
+ }
+ }
+ }
+} 

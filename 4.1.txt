@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.Scanner;
+public class tw4_a {
+ public static void main(String[] args) {
+ Scanner in=new Scanner(System.in);
+ try{
+ File file = new File("C:\\Users\\SAM\\OneDrive\\Desktop\\demo.txt");
+ //Tests whether the application can read the file
+ System.out.println(file.canRead());
+ //Tests whether the application can modify the file
+ System.out.println(file.canWrite());
+ //Tests whether the application can modify the file
+ System.out.println(file.createNewFile());
+ //Tests whether the file or directory exists.
+ System.out.println(file.exists());
+ //Returns the absolute pathname string.
+ System.out.println(file.getAbsolutePath());
+ //Tests whether the file is a directory or not.
+ System.out.println(file.isDirectory());
+ //Tests whether the file is a hidden file or not.
+ System.out.println(file.isHidden());
+ System.out.print("Enter text to write in the file: ");
+ String line = in.nextLine();
+ FileOutputStream fout = new FileOutputStream(file);
+ fout.write(line.getBytes());
+
+ //Tests whether the application can read the file
+ System.out.println(file.canRead());
+ //Tests whether the application can modify the file
+ System.out.println(file.canWrite());
+ //Tests whether the application can modify the file
+ System.out.println(file.createNewFile());
+ //Tests whether the file or directory exists.
+ System.out.println(file.exists());
+ //Returns the absolute pathname string.
+ System.out.println(file.getAbsolutePath());
+ //Tests whether the file is a directory or not.
+ System.out.println(file.isDirectory());
+ //Tests whether the file is a hidden file or not.
+ System.out.println(file.isHidden());
+ fout.close();
+ in.close();
+ }
+ catch(Exception e)
+ {
+ System.out.println(e);
+ }
+ }
+} 

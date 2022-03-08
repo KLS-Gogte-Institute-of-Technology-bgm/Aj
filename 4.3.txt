@@ -1,0 +1,49 @@
+import java.util.Scanner;
+import java,io.*;
+public class tw4c {
+ public static void main(String[] args) {
+ Scanner inp = new Scanner(System.in);
+ File f;
+ String src_file = " C:\\Users\\ \\Desktop\\input.txt";
+ String dest_file = new String();
+ String fname = new String();
+ // Copying content
+ System.out.print("Enter destination file name : ");
+ fname = inp.next();
+ dest_file = " C:\\Users\\ \\Desktop\\" + fname;
+ f = new File(dest_file);
+ try{
+ if(f.createNewFile())
+ System.out.println("Destination file created !!");
+ else{
+ System.out.println("File with name " + fname + " already exists!!");
+ }
+ System.out.println("Copying content to destination");
+ InputStream in = new FileInputStream(src_file);
+ FileOutputStream op = new FileOutputStream(dest_file);
+ int choice = in.read();
+ while (choice != -1) {
+ op.write((char) choice);
+ choice = in.read();
+ }
+ } catch (Exception e) {
+ System.out.println(e);
+ }
+ System.out.println("\n");
+ // File properties
+ File sobj = new File(src_file);
+ File dobj = new File(dest_file);
+ System.out.println("\nProperties of source file \n");
+ System.out.println("File name : " + sobj.getName());
+ System.out.println("Is writable ??" + sobj.canWrite());
+ System.out.println("Is readable ??" + sobj.canRead());
+ System.out.println("No of bytes : " + sobj.getAbsolutePath());
+ System.out.println("Size of file is : " + sobj.length());
+ System.out.println("\nProperties of destination file \n");
+ System.out.println("File name : " + dobj.getName());
+ System.out.println("Is writable ??" + dobj.canWrite());
+ System.out.println("Is readable ??" + dobj.canRead());
+ System.out.println("No of bytes : " + dobj.getAbsolutePath());
+ System.out.println("Size of file is : " + dobj.length());
+ }
+} 

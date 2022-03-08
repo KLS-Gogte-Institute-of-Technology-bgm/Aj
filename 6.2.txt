@@ -1,0 +1,55 @@
+package tw6;
+class Account{
+ public int balance,accNo;
+ void displayBalance(){
+ System.out.println("Account number: "+accNo+" Balance in account: "+balance);
+ }
+ synchronized void deposit(int amount){
+ balance+=amount;
+ System.out.println(amount+" is deposited in the account.");
+ displayBalance();
+ }
+ synchronized void withdraw(int amount){
+ balance-=amount;
+ System.out.println(amount+" withdrawed from the account");
+ displayBalance();
+ }
+}
+abstract class TransactionDeposit implements Runnable{
+ int amount;
+ Account accN;
+ TransactionDeposit(Account acc,int amount){
+ accN=acc;
+ this.amount=amount;
+ new Thread(this).start();
+ }
+ public void run(){
+ accN.deposit(amount);
+ }
+}
+abstract class TransactionWithdraw implements Runnable{
+ int amount;
+ Account accW;
+ TransactionWithdraw(Account acc,int amount){
+ accW=acc;
+ this.amount=amount;
+ new Thread(this).start();
+ }
+ public void run(){
+ accW.withdraw(amount);
+ }
+}
+public class tw6b {
+ public static void main(String args[]){
+ Account A=new Account();
+ A.balance=10000;
+ A.accNo=123;
+ Account B=new Account();
+ B.balance=10000;
+ B.accNo=124;
+ TransactionDeposit t1;
+ TransactionWithdraw t2;
+ t1=new TransactionDeposit(A,700) {};
+ t2=new TransactionWithdraw(B,900) {};
+ }
+} 

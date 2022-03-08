@@ -1,0 +1,50 @@
+import java.sql.*;
+public class tw7d {
+ public static void main(String []args) throws ClassNotFoundException, SQLException{
+ Connection conn = null;
+ PreparedStatement pst;
+ Statement st;
+ Savepoint savepoint1=null;
+ try {
+ Class.forName("com.mysql.cj.jdbc.Driver");
+ conn = DriverManager.getConnection("jdbc:mysql://localhost/practice", "root", "");
+ st = conn.createStatement();
+ conn.setAutoCommit(false);
+ String sql="create table if not exists registration(id integer PRIMARY KEY,name varchar(15),age
+integer)";
+ st.executeUpdate(sql);
+ // Insert Records
+ System.out.println("Inserting records into the table...");
+ sql = "INSERT INTO REGISTRATION VALUES (100, 'Harry', 18)";
+ st.executeUpdate(sql);
+ sql = "INSERT INTO REGISTRATION VALUES (101, 'Vikram', 25)";
+ st.executeUpdate(sql);
+ sql = "INSERT INTO REGISTRATION VALUES (102, 'Toby', 30)";
+ st.executeUpdate(sql);
+ sql = "INSERT INTO REGISTRATION VALUES(103, 'Sumeet', 28)";
+ st.executeUpdate(sql);
+ System.out.println("Inserted records into the table...");
+ //set a Savepoint
+ savepoint1 = conn.setSavepoint("Savepoint1");
+ String SQL = "INSERT INTO REGISTRATION " + "VALUES (106, 'Josh', 20)";
+ st.executeUpdate(SQL);
+ //Submit a malformed SQL statement that breaks
+ SQL = "INSERTED IN REGISTRATION " + "VALUES (107, 22, 'Simon')";
+ st.executeUpdate(SQL);
+ // If there is no error.
+ conn.commit();
+ } catch (SQLException se) {
+ try {
+ if (savepoint1 == null) {
+ conn.rollback();
+ System.out.println("JDBC Transaction rolled back successfully");
+ } else {
+ conn.rollback(savepoint1);
+ conn.commit();
+ }
+ } catch (SQLException e1) {
+ System.out.println("SQLException in rollback" + e1.getMessage());
+ }
+ }
+ }
+}
